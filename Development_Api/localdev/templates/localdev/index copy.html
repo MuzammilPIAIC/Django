@@ -1,0 +1,71 @@
+{% extends 'localdev/basic.html' %}
+{%block title %} CRUD Project {%endblock%}
+
+{% block css %}
+        
+ {% endblock %}
+
+{% block body %}
+{% load static %}
+
+<div class="row justify-content-around mt-3">
+  <div class="col-sm-8">
+      <a href="{% url 'AddData' %}" class="btn btn-primary float-end"> Add </a>
+  </div>
+</div>
+
+<div class="row justify-content-around text-center mt-1">
+<div class="col-sm-8">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">unique_id</th>
+      <th scope="col">id</th>
+      <th scope="col">customer_name</th>
+      <th scope="col">customer_number</th>
+      <th scope="col">date</th>
+      <th scope="col">time </th>
+      <th scope="col">call_type </th>
+      <th scope="col">duration </th>
+      <th scope="col">sales_agent_number </th>
+      <th scope="col">sales_agent_email </th>
+      <th scope="col">created_at </th>
+      <th scope="col">Action </th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for stud in studata %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{stud.unique_id}}</td>
+      <td>{{stud.id}}</td>
+      <td>{{stud.customer_name}}</td>
+      <td>{{stud.customer_number}}</td>
+      <td>{{stud.date}}</td>
+      <td>{{stud.time}}</td>
+      <td>{{stud.call_type}}</td>
+      <td>{{stud.duration}}</td>
+      <td>{{stud.sales_agent_number}}</td>
+      <td>{{stud.sales_agent_email}}</td>
+      <td>{{stud.created_at}}</td>
+      <td>
+        <form action="{% url 'delet-student' %}" method="POST">
+          {%csrf_token%}
+          <input type="hidden" name="id" value="{{stud.id}}">
+          <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+        </form>
+      </td>
+      <td>
+        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+</div>
+</div>
+ {% endblock %}
+
+</div>
